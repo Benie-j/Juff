@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CAFOP IA – Maths</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{--bg:#f1f5fb;--card:#fff;--tx:#14213d;--mu:#5b6b86;--ln:#c9d6ec;--pr:#1d4ed8;--prt:#fff;--mg:#d6403a;--ok:#15803d;--okb:#dcfce7;--ko:#b91c1c;--kob:#fee2e2;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1424;--card:#142036;--tx:#e6edf9;--mu:#9bacc8;--ln:#27385a;--pr:#7aa2ff;--prt:#0c1424;--mg:#f2736d;--ok:#4ade80;--okb:#12301f;--ko:#f87171;--kob:#3a1618;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c1424;--card:#142036;--tx:#e6edf9;--mu:#9bacc8;--ln:#27385a;--pr:#7aa2ff;--prt:#0c1424;--mg:#f2736d;--ok:#4ade80;--okb:#12301f;--ko:#f87171;--kob:#3a1618;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:17px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif;padding-bottom:84px}
+header{padding:14px 16px 6px;display:flex;justify-content:space-between;align-items:baseline}
+header b{font-size:20px}header span{color:var(--mu);font-size:14px}
+main{padding:8px 14px;max-width:680px;margin:auto}
+.card{background:var(--card);border:1px solid var(--ln);border-left:4px solid var(--mg);border-radius:6px;padding:12px 14px;margin:10px 0}
+.q{font-size:18px;margin-top:6px}.mu{color:var(--mu);font-size:14px}
+button{font:inherit;color:inherit;cursor:pointer}
+.op{display:block;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--ln);border-radius:6px;padding:11px 12px;margin:8px 0}
+.op.ok{border-color:var(--ok);background:var(--okb)}.op.ko{border-color:var(--ko);background:var(--kob)}
+.op.sel{border-color:var(--pr)}
+.pr{background:var(--pr);color:var(--prt);border:0;border-radius:6px;padding:12px 16px;font-weight:700;width:100%;margin:8px 0}
+.sc{background:var(--card);border:1.5px solid var(--ln);border-radius:6px;padding:10px 14px;margin:4px 6px 4px 0}
+.lk{background:none;border:0;color:var(--pr);padding:6px 0;font-weight:700}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--ln);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;background:none;border:0;padding:14px 2px;font-size:14px;color:var(--mu)}
+nav button.on{color:var(--pr);font-weight:700;box-shadow:inset 0 3px 0 var(--pr)}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 2px;line-height:1.25}
+.fr i{font-style:normal;padding:0 3px}.fr i:first-child{border-bottom:1.5px solid currentColor}
+.rt .ov{border-top:1.5px solid currentColor;padding:0 1px;margin-left:1px}
+canvas{display:block;width:100%;touch-action:none;border:1px solid var(--ln);border-radius:6px;color:var(--tx);background-color:var(--card);background-image:linear-gradient(var(--ln) 1px,transparent 1px),linear-gradient(90deg,var(--ln) 1px,transparent 1px);background-size:20px 20px}
+.tb{display:flex;gap:6px;margin:6px 0}.tb button,.kp button{background:var(--bg);border:1px solid var(--ln);border-radius:6px;padding:7px 10px}
+.kp{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}.kp button{min-width:40px;font-size:18px}
+textarea{width:100%;font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--ln);border-radius:6px;padding:10px}
+.pv{min-height:44px;padding:8px 10px;margin-top:6px;border:1px dashed var(--ln);border-radius:6px;font-size:19px}
+ol{padding-left:22px}li{margin:6px 0}
+.tm{font-size:30px;font-weight:700;text-align:center}
+.cl{display:flex;justify-content:space-between;gap:10px}.cl .pr{margin:8px 0}
+.gh{background:var(--card);color:var(--pr);border:1.5px solid var(--pr)}
+h2{font-size:20px;margin:14px 0 4px}
+
+#bt{position:fixed;right:0;top:40%;z-index:30;writing-mode:vertical-rl;background:var(--pr);color:var(--prt);border:0;border-radius:8px 0 0 8px;padding:16px 9px;font-weight:700;letter-spacing:.04em;transition:right .2s}
+#bt.open{right:min(94vw,460px)}
+#bp{position:fixed;right:0;top:0;bottom:56px;width:min(94vw,460px);z-index:25;background:var(--card);border-left:4px solid var(--mg);padding:calc(10px + env(safe-area-inset-top,0px)) 12px 12px;overflow:auto;transform:translateX(105%);transition:transform .2s;box-shadow:-6px 0 18px rgba(0,0,0,.18)}
+#bp.open{transform:none}
+.bh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.bh button{background:var(--bg);border:1px solid var(--ln);border-radius:6px;padding:6px 10px;margin-left:6px}
+.en{margin:6px 0;border:1px solid var(--ln);border-radius:6px;padding:6px 10px}.en .q{font-size:16px;max-height:26vh;overflow:auto}
+.sn{display:flex;gap:5px;overflow-x:auto;padding-bottom:6px}.sn button{white-space:nowrap;background:var(--bg);border:1px solid var(--ln);border-radius:6px;padding:7px 10px}
+@media (prefers-reduced-motion:reduce){#bp,#bt{transition:none}}
+</style></head><body>
+<header><b>CAFOP IA · Maths</b><span id="hs"></span></header>
+<main id="m"></main>
+<nav id="nv"></nav>
+<script>
+const $=s=>document.querySelector(s);
+const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function M(s){s=esc(String(s));
+s=s.replace(/\^\(([^()]*)\)/g,'<sup>$1</sup>');
+s=s.replace(/√\(([^()]*)\)/g,'<span class="rt">√<span class="ov">$1</span></span>');
+let p;do{p=s;s=s.replace(/\{([^{}|]*)\|([^{}|]*)\}/g,'<span class="fr"><i>$1</i><i>$2</i></span>')}while(p!==s);
+return s.replace(/\n/g,'<br>')}
+let S={b:{},x:{}};
+try{S=JSON.parse(localStorage.getItem('cafop1'))||S}catch(e){}
+const save=()=>{try{localStorage.setItem('cafop1',JSON.stringify(S))}catch(e){}};
+const Q=[
+{id:'m1',y:2019,q:"{7|3} − {6|3} × {5|6} = …",o:["{15|18}","{2|3}","{6|10}"],a:1,e:"La multiplication d’abord : {6|3} × {5|6} = {5|3}. Puis {7|3} − {5|3} = {2|3}."},
+{id:'m2',y:2019,q:"(2x + 3)(x + 1) − 8(x + 1) a pour forme factorisée…",o:["(x + 1)(2x − 11)","(x + 1)(2x − 5)","(x + 1)(2x + 5)"],a:1,e:"Facteur commun (x + 1) : (x + 1)[(2x + 3) − 8] = (x + 1)(2x − 5)."},
+{id:'m3',y:2019,q:"(3x − 1)² développé =",o:["9x² − 1","3x² − 6x + 1","9x² − 6x + 1"],a:2,e:"(a − b)² = a² − 2ab + b² avec a = 3x et b = 1."},
+{id:'m4',y:2019,q:"Solutions dans ℝ de 3x − 4 < 5(x − 1) :",o:["]{1|2} ; →[","[{1|2} ; →[","]← ; {1|2}["],a:0,e:"3x − 4 < 5x − 5 ; 1 < 2x ; x > {1|2}. Borne ouverte."},
+{id:'m7',y:2022,q:"{7|4} + {2|3} =",o:["{9|7}","{9|12}","{29|12}"],a:2,e:"Dénominateur commun 12 : {21|12} + {8|12} = {29|12}."},
+{id:'m11',y:2023,q:"Un dictionnaire affiché 24 000 F coûte 18 000 F à l’achat. Pourcentage de remise :",o:["75 %","25 %","30 %"],a:1,e:"Remise 6 000 F ; {6 000|24 000} × 100 = 25 %."},
+{id:'m12',y:2023,q:"Décomposition de 1575 en facteurs premiers :",o:["−9 × 5² × 7","3² × 5 × 7","3² × 5² × 7"],a:2,e:"1575 = 5 × 315 = 5 × 5 × 63 = 5² × 3² × 7."},
+{id:'m13',y:2023,q:"{3|1 − √3} = …",o:["{3 − √3|−2}","{−3 − 3√3|2}","{3√3 − 3|2}"],a:1,e:"Multiplie par le conjugué 1 + √3 : {3(1 + √3)|1 − 3} = {3 + 3√3|−2} = {−3 − 3√3|2}."},
+{id:'m14',y:2024,q:"Les coordonnées du vecteur AB⃗ sont…",o:["(xA + xB ; yA + yB)","(xB − xA ; yB − yA)","(xA − xB ; yA − yB)"],a:1,e:"Extrémité moins origine."},
+{id:'m15',y:2024,q:"Si −2 < x < −1 et 2 < y < 4, alors…",o:["−6 < x − y < −3","−5 < x − y < −3","−5 < x − y < −4"],a:0,e:"−4 < −y < −2. On ajoute −2 < x < −1 : −6 < x − y < −3."},
+{id:'m16',y:2024,q:"Volume d’une pyramide de base carrée de côté 4 et de hauteur 6 :",o:["24","32","36"],a:1,e:"{1|3} × 16 × 6 = 32."},
+{id:'m17',y:2024,q:"Solution du système x − 2y − 3 = 0 et 2x + y + 4 = 0 :",o:["(−1 ; 2)","(−1 ; −2)","(−2 ; −1)"],a:1,e:"x = 3 + 2y ; 6 + 5y = −4 ; y = −2 ; x = −1."},
+{id:'m18',y:2024,q:"f est affine avec f(2) = 5 et f(−1) = 2. Alors f(x) =",o:["2x + 5","5x − 3","x + 3"],a:2,e:"a = {5 − 2|2 + 1} = 1 ; 2 = −1 + b donc b = 3."},
+{id:'m19',y:2024,q:"B est le milieu de [AC]. Quelle égalité est vraie ?",o:["BA⃗ = {1|2}AC⃗","AB⃗ = −CB⃗","CA⃗ = 2BC⃗"],a:1,e:"AB⃗ = BC⃗ = −CB⃗. Attention : le corrigé scanné donne a), mais BA⃗ = −{1|2}AC⃗, donc a) est fausse."},
+{id:'m22',y:2025,q:"Forme factorisée de (2x − 1)² − 9 :",o:["4(x + 2)(x − 1)","4(x − 2)(x − 1)","4(x − 2)(x + 1)"],a:2,e:"a² − b² = (a − b)(a + b) : (2x − 4)(2x + 2) = 4(x − 2)(x + 1)."},
+{id:'m23',y:2025,q:"Médiane de la série 2 ; 13 ; 3 ; 11 ; 5 ; 19 :",o:["8","5","11"],a:0,e:"Rangée : 2, 3, 5, 11, 13, 19. N = 6 : {5 + 11|2} = 8."},
+{id:'m24',y:2025,q:"Milieu de [AB] avec A({1|2} ; {3|2}) et B({3|2} ; {9|2}) :",o:["(1 ; 2)","(1 ; 3)","(2 ; {5|2})"],a:1,e:"x : {1|2} + {3|2} = 2, puis 2 ÷ 2 = 1. y : {3|2} + {9|2} = 6, puis 6 ÷ 2 = 3."},
+{id:'m25',y:2026,q:"La droite (Δ) est parallèle à la droite d’équation y = 2x + 1. Son coefficient directeur est…",o:["−{1|2}","2","−2","{1|2}"],a:1,e:"Deux droites parallèles ont le même coefficient directeur."},
+{id:'m26',y:2026,q:"Solutions du système 2x − 5y = 16 et 3x + y = 7 :",o:["(−3 ; 2)","(3 ; −2)","(−3 ; −2)","(3 ; 2)"],a:1,e:"y = 7 − 3x ; 2x − 35 + 15x = 16 ; 17x = 51 ; x = 3 ; y = −2."},
+{id:'m27',y:2026,q:"Volume d’un cône de rayon 3 et de hauteur 5 (π = 3) :",o:["35","45","55","65"],a:1,e:"V = {1|3} × π × r² × h = {1|3} × 3 × 9 × 5 = 45."},
+{id:'m28',y:2026,q:"A(3 ; 2), B(4 ; 5) et C(2 ; y) sont alignés. Alors y = …",o:["2","−2","1","−1"],a:3,e:"AB⃗(1 ; 3) et AC⃗(−1 ; y − 2) sont colinéaires : y − 2 = −3, donc y = −1."},
+{id:'m29',y:2026,q:"√[(2 − √3)²] = …",o:["√3 − 2","−√3 − 2","−√3 + 2","√3 + 2"],a:2,e:"√(a²) = |a|. Comme 2 > √3, |2 − √3| = 2 − √3."},
+{id:'m30',y:2026,q:"Solutions de 3x² − 4 = 0 :",o:["{2√3|3} et −{2√3|3}","{2|3} et −{2|3}","{3|2} et −{3|2}","2√3 et −2√3"],a:0,e:"x² = {4|3}, donc x = ±{2|√3} = ±{2√3|3}."}
+];
+Q.push(
+{id:'f1',y:'IPNETP 2021',s:'f',q:"Quelle phrase est correctement orthographiée ?",o:["Quelque soient ses volontés, je les accepterai.","Quelles que soit ses volontés, je les accepterai.","Quelles que soient ses volontés, je les accepterai.","Quelques soient ses volontés, je les accepterai."],a:2,e:"« Quelle que » s’écrit en deux mots et s’accorde avec le sujet : volontés est au pluriel, donc « Quelles que soient »."},
+{id:'f2',y:'IPNETP 2021',s:'f',q:"Ils se donnent les moyens « de leur grande ambition ». Le pronom qui remplace le groupe souligné est :",o:["Ils s’en donnent les moyens.","Ils se donnent les moyens de cela.","Ils se les donnent.","Ils s’y donnent les moyens."],a:0,e:"Le pronom « en » remplace un complément introduit par « de »."},
+{id:'f3',y:'IPNETP 2021',s:'f',q:"Lequel de ces mots en -al ne fait pas son pluriel en -aux ?",o:["cheval","vassal","festival","mal"],a:2,e:"Des festivals. Cheval, vassal et mal font chevaux, vassaux, maux."},
+{id:'f4',y:'IPNETP 2021',s:'f',q:"Futur simple de « boire » à la 2ᵉ personne du singulier :",o:["Tu buvras","Tu boiras","Tu buveras","Tu boireras"],a:1,e:"Boire : je boirai, tu boiras. (Sur le scan, l’option b a une apostrophe en trop.)"},
+{id:'f5',y:'IPNETP 2021',s:'f',q:"Le synonyme de « flegme » est :",o:["Calme","Enthousiasme","Faiblesse","Excitation"],a:0,e:"Le flegme est un calme que rien ne trouble."},
+{id:'f6',y:'IPNETP 2021',s:'f',q:"Le verbe « rire » à l’imparfait de l’indicatif :",o:["vous rirez","vous riez","vous riiez","vous ririez"],a:2,e:"Imparfait : nous riions, vous riiez. « Vous riez » est le présent, « vous ririez » le conditionnel."},
+{id:'f7',y:'IPNETP 2021',s:'f',q:"Accorde le participe passé : Les différentes délégations qui se sont … n’ont guère fait mieux.",o:["succédées","succédé","succédés","succéder"],a:1,e:"« Se succéder » : « se » est complément indirect (succéder à), donc le participe reste invariable."},
+{id:'f8',y:'IPNETP 2021',s:'f',q:"Pluriel correct de « chef-d’œuvre » :",o:["chef-d’œuvres","chefs-d’œuvre","chef-d’œuvre","chefs-d’œuvres"],a:1,e:"Des chefs-d’œuvre : « chef » prend le s, « œuvre » reste au singulier."},
+{id:'f9',y:'IPNETP 2021',s:'f',q:"Dans le plan dialectique d’une dissertation, la synthèse…",o:["reprend de façon appuyée la thèse,","fait le résumé de la thèse et de l’antithèse,","dépasse les deux thèses et développe le sujet dans une autre perspective,","reprend de façon appuyée l’antithèse."],a:2,e:"La synthèse dépasse l’opposition entre la thèse et l’antithèse."},
+{id:'f10',y:'IPNETP 2021',s:'f',q:"L’adverbe dérivé de « puissant » est :",o:["puissamment","puissament","guissement","Puissament"],a:0,e:"Les adjectifs en -ant donnent des adverbes en -amment : puissant, puissamment."},
+{id:'f11',y:'IPNETP 2021',s:'f',q:"Elles se sont …",o:["Parlées","Parlé","Parlés","Parlée"],a:1,e:"« Se parler » : « se » est complément indirect (parler à), donc le participe reste invariable."},
+{id:'f12',y:'IPNETP 2021',s:'f',q:"Les étudiants … à notre amical seront reçus par le directeur.",o:["adhérants","adhérant","adhérents","adhérants"],a:2,e:"« Adhérent » (adjectif ou nom) prend -ent et s’accorde : adhérents. « Adhérant » est le participe présent, invariable. (Les options a et d sont identiques sur le scan.)"},
+{id:'f13',y:'IPNETP 2021',s:'f',q:"Moi, je ne sors que le lundi. Phrase de même sens :",o:["Je sors seulement le lundi.","Je sors aussi le lundi.","Je sors généralement le lundi.","Je sors peut-être le lundi."],a:0,e:"« Ne … que » exprime la restriction : seulement."},
+{id:'f14',y:'IPNETP 2021',s:'f',q:"Quelle proposition est correcte ?",o:["Il envoiera","Il enverra","Il envéra","Il envoyera"],a:1,e:"Envoyer fait « j’enverrai » au futur."},
+{id:'f15',y:'IPNETP 2021',s:'f',q:"Quel nombre est mal écrit ?",o:["Huit cent millions","Six mille un","Huit cent vingt","Quatre-vingts"],a:0,e:"« Cent » prend un s quand il est multiplié et suivi d’un nom : huit cents millions. Dans « huit cent vingt », il est suivi d’un nombre : pas de s."},
+{id:'f16',y:'IPNETP 2021',s:'f',q:"J’aimerais avoir … de temps pour finir mon livre.",o:["D’avantages","Avantages","D’avantage","Davantage"],a:3,e:"« Davantage » (adverbe, un seul mot) : davantage de temps."},
+{id:'f17',y:'IPNETP 2021',s:'f',q:"Les frères consanguins sont issus :",o:["De la même mère et non du même père","Du même père et non de la même mère","De pères cousins","De père frères"],a:1,e:"Consanguins : même père. Utérins : même mère."},
+{id:'f18',y:'IPNETP 2021',s:'f',q:"Le faon est le petit de :",o:["La hase","La biche","La cigogne","La vipère"],a:1,e:"Le faon est le petit de la biche. Le petit de la hase est le levraut."},
+{id:'g1',y:'IPNETP 2022',s:'f',q:"« Je lui ai demandé s’il était prêt. » Cette phrase est :",o:["déclarative","interrogative","exclamative","impérative"],a:0,e:"C’est une interrogation indirecte : la phrase déclare un fait et finit par un point."},
+{id:'g2',y:'IPNETP 2022',s:'f',q:"Phrase dont le participe passé est bien accordé :",o:["J’ai tirée une balle","Voici la balle que j’ai tiré","Voici la balle que j’ai tirer","Voici la balle que j’ai tirée"],a:3,e:"Avec avoir, le participe s’accorde avec le COD placé avant : « que » = la balle, donc tirée."},
+{id:'g3',y:'IPNETP 2022',s:'f',q:"« La police recherche le voleur. » Phrase passive correspondante :",o:["La police est recherchée par le voleur","Le voleur a été recherché par la police","La police a été recherchée par le voleur","Le voleur est recherché par la police."],a:3,e:"Même temps (présent) : le COD devient sujet, le verbe passe à « est recherché », l’ancien sujet devient complément d’agent."},
+{id:'g4',y:'IPNETP 2022',s:'f',q:"Phrase contenant un verbe transitif :",o:["Le bon ouvrier gagne toujours dans le travail","Le bon ouvrier gagne toujours son pain","Le bon ouvrier gagne abondamment en vivre","Le bon ouvrier gagne avec dignité."],a:1,e:"« Gagne son pain » : le verbe a un COD (son pain)."},
+{id:'g5',y:'IPNETP 2022',s:'f',q:"« Les commerces sont fermés. » Subordonnée correspondante :",o:["comme les tirs d’armes se sont amplifiés","nonobstant les tirs d’armes amplifiés","si bien que les tirs d’armes se sont amplifiés","pour que les tirs d’armes s’amplifient."],a:0,e:"Les tirs d’armes expliquent la fermeture : subordonnée de cause. « Nonobstant… » est un groupe nominal, pas une subordonnée."},
+{id:'g6',y:'IPNETP 2022',s:'f',q:"« Le patron est arrivé après que… » Proposition correcte :",o:["Je sois sorti du bureau.","J’étais sorti du bureau.","Je suis sorti du bureau.","Je sorte du bureau."],a:2,e:"« Après que » se construit avec l’indicatif, jamais avec le subjonctif : je suis sorti."},
+{id:'g7',y:'IPNETP 2022',s:'f',q:"Une seule de ces phrases est grammaticalement incorrecte :",o:["Nous avons entendu la cantilène ce matin.","La cantilène que tu as entendue est douce.","La cantilène que tu as entendue chanter est douce.","La cantilène chantée nous a tous bercés."],a:2,e:"La cantilène est chantée par quelqu’un, elle ne chante pas : le participe reste invariable (que tu as entendu chanter)."},
+{id:'g8',y:'IPNETP 2022',s:'f',q:"« Les autorités sont arrivées en retard nonobstant la persistance de la pluie. » La circonstance exprimée est une :",o:["circonstance de cause","circonstance de condition","circonstance de concession","circonstance d’opposition"],a:2,e:"« Nonobstant » signifie malgré : on exprime un obstacle qui n’a pas empêché le fait, donc la concession."},
+{id:'g9',y:'IPNETP 2022',s:'f',q:"« Après une longue randonnée, nous sommes enfin retournés… » Complément circonstanciel correct :",o:["en la maison","à la maison","dans la maison"],a:1,e:"On retourne « à la maison ». (L’option d est coupée sur le scan.)"},
+{id:'g10',y:'IPNETP 2022',s:'f',q:"Quel est le sens du mot « sagacité » ?",o:["Amabilité","Facilité","Naïveté","Perspicacité"],a:3,e:"La sagacité est la finesse d’esprit : la perspicacité."},
+{id:'g11',y:'IPNETP 2022',s:'f',q:"Un seul de ces mots est masculin :",o:["échappatoire","urticaire","planisphère","alcôve"],a:2,e:"Un planisphère. Une échappatoire, une urticaire, une alcôve."},
+{id:'g12',y:'IPNETP 2022',s:'f',q:"Une personne qui lit avec peine, en hésitant, est une personne qui…",o:["grommelle","marmonne","anonne","susurre"],a:2,e:"Anonner : lire ou réciter avec peine, en hésitant."},
+{id:'g13',y:'IPNETP 2022',s:'f',q:"De l’œuvre de quel auteur est tirée la citation « Ce que je sais, c’est que je ne sais rien » ?",o:["François Diderot","Montaigne","J.-P. Sartre","Socrate"],a:3,e:"Cette formule est attribuée à Socrate."},
+{id:'g14',y:'IPNETP 2022',s:'f',q:"Quel auteur a publié en 1721 Les lettres persanes pour critiquer la société française ?",o:["Montesquieu","Molière","Montaigne","Marivaux"],a:0,e:"Montesquieu, Lettres persanes, 1721."},
+{id:'g15',y:'IPNETP 2022',s:'f',q:"Lequel de ces mots est un antonyme de « chasteté » ?",o:["Célibat","Débauche","Prudence","Modération"],a:1,e:"La chasteté s’oppose à la débauche."},
+{id:'g16',y:'IPNETP 2022',s:'f',q:"Dans « Paul est devenu poli », le mot « poli » est :",o:["Une épithète","Un complément du nom « garçon »","Un complément circonstanciel de manière","Un attribut du sujet"],a:3,e:"Devenir est un verbe d’état : « poli » est attribut du sujet Paul."},
+{id:'g17',y:'IPNETP 2022',s:'f',q:"Dans l’adage « on n’est mieux que chez soi », on peut remplacer « on » par :",o:["Il","L’homme","Chacun","Personne"],a:2,e:"« Soi » renvoie à un sujet indéfini : chacun."},
+{id:'g18',y:'IPNETP 2022',s:'f',q:"Dans « nous avons mangé les œufs », le groupe nominal « les œufs » peut être remplacé par le pronom :",o:["Les","Leur","Y","en"],a:0,e:"C’est un COD : nous les avons mangés."},
+{id:'g19',y:'IPNETP 2022',s:'f',q:"« Les techniques d’expression française sont importantes. » Subordonnée correspondante :",o:["Vu qu’on les applique au quotidien","Malgré leur application au quotidien","Même si on les applique au quotidien","Alors qu’on les applique au quotidien."],a:0,e:"« Vu que » introduit la cause. « Malgré… » n’est pas une subordonnée."},
+{id:'g20',y:'IPNETP 2022',s:'f',q:"Lequel des participes passés est correct ?",o:["Nous avons vue cette fille ce matin","Cette fille, elles l’ont vues.","Cette fille que nous avons vu chanter est ma sœur","Cette fille que nous avons vue est ma sœur"],a:3,e:"Avec avoir, accord avec le COD placé avant : « que » = la fille, donc vue. Dans « vu chanter », la fille fait l’action de chanter : on écrirait vue chanter."},
+{id:'g21',y:'IPNETP 2022',s:'f',q:"« Le match peut reprendre du moment où la pluie a cessé. » La subordonnée soulignée est :",o:["Une subordonnée de condition","Une subordonnée de cause","Une subordonnée de temps","Une subordonnée de concession"],a:2,e:"« Du moment où » = à partir du moment où : le temps. (« Du moment que » exprimerait la cause.)"},
+{id:'g22',y:'IPNETP 2022',s:'f',q:"Des avis antagoniques sont comme :",o:["Deux droites parallèles","Deux droites perpendiculaires","Deux droites de sens opposés","Deux droites sécantes"],a:2,e:"Antagonique : qui s’oppose, opposé."}
+);
+const X=[
+{id:'x1',t:"Prix des volailles (2017)",q:"Un marchand vend ensemble un poulet, un canard, une pintade et un dindon pour 46 800 F. Le poulet coûte le tiers du canard ; la pintade coûte 1 800 F de plus que le poulet ; le dindon coûte cinq fois la pintade.\nCalcule le prix de chaque volaille.",s:["x = prix du poulet. Canard : 3x. Pintade : x + 1 800. Dindon : 5(x + 1 800) = 5x + 9 000.","x + 3x + (x + 1 800) + (5x + 9 000) = 46 800","10x + 10 800 = 46 800, donc x = 3 600.","Poulet 3 600 F ; canard 10 800 F ; pintade 5 400 F ; dindon 27 000 F."]},
+{id:'x2',t:"Système et problème (2020)",q:"1. Résous le système : x + y = 40 et 9x + 5y = 312.\n2. Une communauté de 40 personnes organise une sortie : un adulte paie 900 F, un adolescent 500 F, total encaissé 31 200 F. Écris le système puis trouve le nombre d’adultes et d’adolescents.",s:["y = 40 − x, puis 9x + 5(40 − x) = 312.","4x + 200 = 312, donc x = 28 et y = 12.","Système : x + y = 40 et 900x + 500y = 31 200 (divisé par 100 : 9x + 5y = 312).","28 adultes et 12 adolescents."]},
+{id:'x3',t:"Expression et inéquations (2026)",q:"A = (x + 3)² − 2x(x + 3)\n1. a) Développe, réduis et ordonne A. b) Justifie que A = (x + 3)(3 − x). c) Calcule A pour x = √(3).\n2. Résous dans ℝ : 3x ≥ 2x + {2|3}.\n3. Sachant que −3x + 1 > x − 3 a pour solution ]← ; 1[, donne les solutions du système.",s:["a) A = x² + 6x + 9 − 2x² − 6x = −x² + 9.","b) Facteur commun (x + 3) : A = (x + 3)[(x + 3) − 2x] = (x + 3)(3 − x).","c) A = (3 + √(3))(3 − √(3)) = 9 − 3 = 6.","2. 3x − 2x ≥ {2|3}, donc x ≥ {2|3} : solutions [{2|3} ; →[.","3. Intersection des deux intervalles : [{2|3} ; 1[."]},
+{id:'x4',t:"Statistiques (2026)",q:"Notes (effectifs) : 5 (3) ; 7 (1) ; 8 (3) ; 9 (2) ; 10 (1) ; 11 (1) ; 12 (2) ; 13 (3) ; 14 (1) ; 15 (3).\n1. Dresse le tableau des effectifs cumulés croissants.\n2. Donne le pourcentage d’élèves ayant une note dans ]11 ; 15].\n3. a) Calcule la moyenne. b) Détermine la médiane. c) Interprète-la.",s:["Effectifs cumulés : 3 ; 4 ; 7 ; 9 ; 10 ; 11 ; 13 ; 16 ; 17 ; 20.","]11 ; 15] : 2 + 3 + 1 + 3 = 9 élèves, donc {9|20} × 100 = 45 %.","Moyenne = {207|20} = 10,35.","N = 20 est pair : médiane = {10 + 11|2} = 10,5 (10ᵉ et 11ᵉ valeurs).","Interprétation : la moitié des élèves a moins de 10,5 et l’autre moitié a plus de 10,5."]},
+{id:'x5',t:"Thalès (2024)",q:"ABC est rectangle en A, AB = 5 et AC = 12. M ∈ [AB] avec AM = 3. La parallèle à (BC) passant par M coupe (AC) en N.\n1. Justifie que BC = 13.\n2. a) Justifie que {AM|AB} = {MN|BC}. b) Déduis-en MN.",s:["Pythagore : BC² = AB² + AC² = 25 + 144 = 169, donc BC = 13.","Thalès, car (MN) // (BC) : {AM|AB} = {AN|AC} = {MN|BC}.","{3|5} = {MN|13}, donc MN = {3 × 13|5} = 7,8 cm."]},
+{id:'x6',t:"Proportionnalité (2022)",q:"M. Koné donne 355 500 F à trois ouvriers qui ont travaillé 23, 27 et 29 jours. La rémunération est proportionnelle au nombre de jours.\n1. Calcule le salaire de chaque ouvrier.\n2. Calcule le salaire d’un ouvrier ayant travaillé 6 jours.",s:["{x|23} = {y|27} = {z|29} = k, avec x + y + z = 355 500.","k = {355 500|23 + 27 + 29} = {355 500|79} = 4 500 F par jour.","23 × 4 500 = 103 500 F ; 27 × 4 500 = 121 500 F ; 29 × 4 500 = 130 500 F.","6 × 4 500 = 27 000 F."]},
+{id:'x7',t:"Fonctions affines (2025)",q:"f est affine avec f(2) = −1 et f(3) = 2. g(x) = −{1|3}x + {1|3}.\n1. Justifie que f(x) = 3x − 7.\n2. Calcule f(−{1|√(3)}).\n3. Justifie que les droites de f et g sont perpendiculaires.\n4. Résous : y = 3x − 7 et y = −{1|3}x + {1|3}.",s:["a = {2 − (−1)|3 − 2} = 3, puis −1 = 3 × 2 + b donne b = −7.","f(−{1|√(3)}) = −{3|√(3)} − 7 = −√(3) − 7. Attention au signe : le corrigé scanné l’oublie.","3 × (−{1|3}) = −1 : le produit des pentes vaut −1, donc les droites sont perpendiculaires.","3x − 7 = −{1|3}x + {1|3} donne 10x = 22, x = {11|5}, puis y = {2|5}. Point d’intersection : ({11|5} ; {2|5})."]},
+{id:'x8',t:"Cube et triangle équilatéral (2021)",q:"ABCDEFGH est un cube de 6 cm d’arête.\n1. Justifie que ACH est équilatéral.\n2. Calcule AC.\n3. Calcule l’aire du triangle ACH.",s:["AC, AH et CH sont des diagonales de faces carrées de côté 6 : elles sont égales, donc ACH est équilatéral.","Pythagore dans ABC : AC² = 6² + 6² = 72, donc AC = 6√(2) cm.","Aire = {√(3)|4} × 72 = 18√(3) cm²."]},
+{id:'x9',t:"Pythagore, Thalès et aire (2026)",q:"Unité : le cm (figure sur le sujet scanné). BE = 60 ; PE = 30 ; BK = 40. BEP est rectangle en E. La parallèle à (BP) passant par K coupe (EP) en O ; la parallèle à (PE) passant par K coupe (BP) en H.\n1. Calcule BP.\n2. a) Calcule tan(EBP). b) Déduis-en KH.\n3. a) Justifie que KOPH est un parallélogramme. b) Calcule son aire.",s:["Pythagore : BP² = 60² + 30² = 4 500, donc BP = 30√(5).","tan(EBP) = {PE|BE} = {30|60} = 0,5.","(KH) // (PE) : BKH est rectangle en K et a le même angle en B, donc {KH|BK} = 0,5 et KH = 40 × 0,5 = 20.","(KH) // (OP) et (KO) // (HP) : côtés opposés parallèles, donc KOPH est un parallélogramme.","Aire = KH × KE = 20 × 20 = 400 cm²."]}
+];
+const F=[["Identités remarquables","(a + b)^(2) = a^(2) + 2ab + b^(2)\n(a − b)^(2) = a^(2) − 2ab + b^(2)\na^(2) − b^(2) = (a − b)(a + b)"],
+["Puissances et radicaux","a^(m) × a^(n) = a^(m+n)\n(a^(m))^(n) = a^(mn)\n{1|a + √(b)} = {a − √(b)|a^(2) − b}"],
+["Droites et fonctions affines","f(x) = ax + b ; a = {yB − yA|xB − xA}\nParallèles : même a. Perpendiculaires : a × a’ = −1"],
+["Repère et vecteurs","AB⃗ = (xB − xA ; yB − yA)\nMilieu : ({xA + xB|2} ; {yA + yB|2})\nParallélogramme ABCD : AB⃗ = DC⃗"],
+["Pythagore et Thalès","Rectangle en A : BC^(2) = AB^(2) + AC^(2)\n(MN) // (BC) : {AM|AB} = {AN|AC} = {MN|BC}"],
+["Statistiques","Moyenne = {Σ effectif × valeur|effectif total}\nMédiane, N pair : moyenne des valeurs de rang {N|2} et {N|2} + 1\nMédiane, N impair : valeur de rang {N + 1|2}"],
+["Volumes et réduction","Pyramide : V = {1|3} × B × h. Cône : V = {1|3}πr^(2)h. Cube : a^(3)\nRéduction de rapport k : longueurs × k, aires × k^(2), volumes × k^(3)"],
+["Pourcentage et intervalles","Pourcentage = {partie|total} × 100\n]a ; b[ : bornes exclues. Amplitude = b − a"]];
+let BR='',CUR='';try{BR=localStorage.getItem('cafop_br')||''}catch(e){}
+const K=[['a⁄b','{|}',2],['|','|',0],['√','√()',1],['xⁿ','^()',1],['x²','^(2)',0],['x³','^(3)',0],['×','×',0],['÷','÷',0],['±','±',0],['=','=',0],['≠','≠',0],['≈','≈',0],['<','<',0],['>','>',0],['≤','≤',0],['≥','≥',0],['π','π',0],['Σ','Σ',0],['°','°',0],['∈','∈',0],['∞','∞',0],['∪','∪',0],['→','→',0],['⊥','⊥',0],['∥','∥',0],['v⃗','⃗',0],['(','(',0],[')',')',0],['[','[',0],[']',']',0],[';',';',0],['x','x',0],['y','y',0]];
+const SN=[['(a+b)²','(a + b)^(2) = a^(2) + 2ab + b^(2)'],['(a−b)²','(a − b)^(2) = a^(2) − 2ab + b^(2)'],['a²−b²','a^(2) − b^(2) = (a − b)(a + b)'],['Pythagore','BC^(2) = AB^(2) + AC^(2)'],['Thalès','{AM|AB} = {AN|AC} = {MN|BC}'],['Pente','a = {yB − yA|xB − xA}'],['y = ax + b','y = ax + b'],['Milieu','({xA + xB|2} ; {yA + yB|2})'],['Vecteur','AB⃗ = (xB − xA ; yB − yA)'],['Système','(S) :\nx + y = 40\n9x + 5y = 312'],['Équation','ax + b = 0\nax = −b\nx = {−b|a}'],['Moyenne','Moyenne = {Σ n × x|N}'],['Médiane','Me = {x10 + x11|2}'],['Pourcentage','{partie|total} × 100'],['V pyramide','V = {1|3} × B × h'],['V cône','V = {1|3}πr^(2)h'],['Réduction','V′ = k^(3) × V'],['Conjugué','{1|a + √(b)} = {a − √(b)|a^(2) − b}'],['Produit en croix','{a|b} = {c|d} donc a × d = b × c'],['Aire triangle','A = {b × h|2}']];
+function inp(h,o){o=o||{};h.innerHTML='<div class="kp"></div><div class="sn"></div><textarea rows="5" placeholder="Écris ici. Les boutons ajoutent fractions, racines, puissances et formules."></textarea><div class="pv mu">Aperçu</div>';
+const kp=h.querySelector('.kp'),sn=h.querySelector('.sn'),ta=h.querySelector('textarea'),pv=h.querySelector('.pv');
+ta.value=o.v||'';
+const up=()=>{pv.innerHTML=ta.value.trim()?M(ta.value):'Aperçu';if(o.on)o.on(ta.value)};
+const put=(t,b)=>{const s=ta.selectionStart,n=ta.selectionEnd;ta.setRangeText(t,s,n,'end');const p=s+t.length-(b||0);ta.setSelectionRange(p,p);ta.focus();up()};
+const mk=(l,t,b,box)=>{const e=document.createElement('button');e.textContent=l;e.onpointerdown=ev=>ev.preventDefault();e.onclick=()=>put(t,b);box.appendChild(e)};
+K.forEach(([l,t,b])=>mk(l,t,b,kp));SN.forEach(([l,t])=>mk(l,t,0,sn));
+ta.oninput=up;up()}
+function setCur(s){CUR=s||'';const q=document.getElementById('bq');if(q)q.innerHTML=CUR?M(CUR):'Aucun énoncé ouvert.'}
+function panel(){const bo=v=>{BR=v;try{localStorage.setItem('cafop_br',v)}catch(e){}};
+const p=document.createElement('div');p.id='bp';p.innerHTML='<div class="bh"><b>Brouillon</b><span><button id="bc">Effacer</button><button id="bx">Fermer</button></span></div><details class="en"><summary>Rappel de l’énoncé</summary><div id="bq" class="q"></div></details><div id="bi"></div>';document.body.appendChild(p);
+const t=document.createElement('button');t.id='bt';t.textContent='Brouillon';document.body.appendChild(t);
+const tog=()=>{const o=p.classList.toggle('open');t.classList.toggle('open',o);setCur(CUR)};
+t.onclick=tog;document.getElementById('bx').onclick=tog;
+inp(document.getElementById('bi'),{v:BR,on:bo});
+document.getElementById('bc').onclick=()=>{bo('');inp(document.getElementById('bi'),{v:'',on:bo})}}
+let tab='h',qs=null,tmr=null;
+const T=[['h','Accueil'],['q','QCM'],['x','Exercices'],['e','Examen'],['f','Formules']];
+function go(t){tab=t;setCur('');if(tmr){clearInterval(tmr);tmr=null}
+$('#nv').innerHTML=T.map(([k,l])=>`<button class="${k===t?'on':''}" data-k="${k}">${l}</button>`).join('');
+$('#nv').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(b.dataset.k==='q')qs=null;go(b.dataset.k)});
+const mastered=Q.filter(q=>(S.b[q.id]||0)>=3).length,done=X.filter(x=>S.x[x.id]===1).length;
+$('#hs').textContent=mastered+'/'+Q.length+' QCM acquis';
+({h:home,q:qcm,x:exos,e:exam,f:fiches})[t]();window.scrollTo(0,0)}
+function home(){$('#m').innerHTML=`<div class="card"><b>Maths du CAFOP IA, sur les vrais sujets 2017 à 2026</b><p>Touche la languette Brouillon à droite pour calculer avant de répondre, puis compare avec le corrigé détaillé. Les questions ratées reviennent plus souvent.</p></div>
+<button class="pr" id="a1">Série de 10 QCM</button><button class="pr gh" id="a2">Exercices guidés</button><button class="pr gh" id="a3">Examen blanc de 2 h</button>
+<h2>Ta progression</h2><span class="sc">QCM acquis : ${Q.filter(q=>(S.b[q.id]||0)>=3).length}/${Q.length}</span><span class="sc">Exercices réussis : ${X.filter(x=>S.x[x.id]===1).length}/${X.length}</span>
+<div class="card"><b>À savoir</b><p class="mu">L’épreuve dure 2 h, coefficient 1, avec 4 exercices. L’exercice 1 est un QCM qui se fait au brouillon. Les thèmes qui reviennent : équations et systèmes, fonctions affines, Pythagore et Thalès, statistiques, radicaux, volumes, vecteurs.</p></div>`;
+$('#a1').onclick=()=>{qs=null;go('q')};$('#a2').onclick=()=>go('x');$('#a3').onclick=()=>go('e')}
+function qcm(){const m=$('#m');
+if(!qs){setCur('');m.innerHTML='<h2>Choisis une série de 10 QCM</h2><button class="pr" data-s="m">Mathématiques</button><button class="pr gh" data-s="f">Français (IPNETP 2021 et 2022)</button><button class="pr gh" data-s="a">Mélange</button>';m.querySelectorAll('button').forEach(b=>b.onclick=()=>{const s=b.dataset.s,l=Q.filter(q=>s==='a'||(s==='f')===(q.s==='f')).map(q=>({q,r:(S.b[q.id]||0)+Math.random()*1.5})).sort((a,b)=>a.r-b.r).slice(0,10).map(o=>o.q);qs={l,i:0,n:0,lock:false};qcm()});return}
+if(qs.i>=qs.l.length){m.innerHTML=`<div class="card"><b>Série terminée : ${qs.n}/${qs.l.length}</b><p class="mu">Les questions ratées reviendront en priorité.</p></div><button class="pr" id="r">Nouvelle série</button>`;$('#r').onclick=()=>{qs=null;qcm()};return}
+const q=qs.l[qs.i];qs.lock=false;setCur(q.q+'\n'+q.o.map((o,i)=>'ABCD'[i]+'. '+o).join('\n'));
+m.innerHTML=`<div class="card"><span class="mu">Question ${qs.i+1} sur ${qs.l.length} · sujet ${q.y}</span><div class="q">${M(q.q)}</div></div>${q.o.map((o,i)=>`<button class="op" data-i="${i}"><b>${'ABCD'[i]}.</b> ${M(o)}</button>`).join('')}<div id="fb"></div>`;
+
+m.querySelectorAll('.op').forEach(b=>b.onclick=()=>{if(qs.lock)return;qs.lock=true;const i=+b.dataset.i,ok=i===q.a;
+m.querySelectorAll('.op')[q.a].classList.add('ok');if(!ok)b.classList.add('ko');
+S.b[q.id]=ok?Math.min(4,(S.b[q.id]||0)+1):0;if(ok)qs.n++;save();
+$('#fb').innerHTML=`<div class="card"><b>${ok?'Bonne réponse':'Réponse : '+'ABCD'[q.a]}</b><p>${M(q.e)}</p></div><button class="pr" id="nx">${qs.i+1<qs.l.length?'Question suivante':'Voir le résultat'}</button>`;
+$('#nx').onclick=()=>{qs.i++;qcm()};$('#nx').scrollIntoView({block:'center'})})}
+function exos(){$('#m').innerHTML='<h2>Exercices guidés</h2><p class="mu">Chaque exercice vient d’un vrai sujet. Cherche au brouillon, écris ta copie, puis ouvre le corrigé.</p>'+X.map((x,i)=>`<button class="op" data-i="${i}"><b>${x.t}</b><br><span class="mu">${S.x[x.id]===1?'Réussi':S.x[x.id]===0?'À revoir':'Pas encore fait'}</span></button>`).join('');
+document.querySelectorAll('.op').forEach(b=>b.onclick=()=>exo(+b.dataset.i))}
+function exo(i){const x=X[i],m=$('#m');setCur(x.q);
+m.innerHTML=`<button class="lk" id="bk">← Retour à la liste</button><div class="card"><b>${x.t}</b><div class="q">${M(x.q)}</div></div><div class="card"><b>Ma copie</b><div id="ip"></div></div><button class="pr" id="sh">Voir le corrigé</button><div id="co"></div>`;
+inp($('#ip'));$('#bk').onclick=()=>go('x');
+$('#sh').onclick=()=>{$('#sh').style.display='none';$('#co').innerHTML=`<div class="card"><b>Corrigé pas à pas</b><ol>${x.s.map(s=>`<li>${M(s)}</li>`).join('')}</ol></div><div class="cl"><button class="pr" id="ok">Réussi</button><button class="pr gh" id="ko">À revoir</button></div>`;
+$('#ok').onclick=()=>{S.x[x.id]=1;save();go('x')};$('#ko').onclick=()=>{S.x[x.id]=0;save();go('x')};$('#co').scrollIntoView()}}
+function exam(){const m=$('#m'),E=Q.filter(q=>q.y===2026).slice(0,6),A=[];const ex=['x3','x4','x9'].map(id=>X.find(x=>x.id===id));setCur(ex.map((x,i)=>'Exercice '+(i+2)+' : '+x.q).join('\n\n'));
+m.innerHTML=`<div class="card"><b>Examen blanc inspiré du sujet 2026</b><p class="mu">2 h, comme au concours. Le corrigé n’apparaît qu’à la fin.</p><div class="tm" id="tm">2:00:00</div></div>
+<div class="card"><b>Exercice 1 (QCM, au brouillon)</b><div id="qz"></div></div>
+${ex.map((x,i)=>`<div class="card"><b>Exercice ${i+2} · ${x.t}</b><div class="q">${M(x.q)}</div></div>`).join('')}
+<div class="card"><b>Ma copie</b><div id="ip"></div></div><button class="pr" id="fin">Terminer et corriger</button><div id="rs"></div>`;
+$('#qz').innerHTML=E.map((q,i)=>`<div style="margin:10px 0"><b>${i+1}.</b> ${M(q.q)}<div class="kp">${q.o.map((o,j)=>`<button class="ch" data-i="${i}" data-j="${j}">${'ABCD'[j]}. ${M(o)}</button>`).join('')}</div></div>`).join('');
+$('#qz').querySelectorAll('.ch').forEach(b=>b.onclick=()=>{A[+b.dataset.i]=+b.dataset.j;$('#qz').querySelectorAll(`.ch[data-i="${b.dataset.i}"]`).forEach(o=>o.classList.remove('sel'));b.classList.add('sel');b.style.borderColor='var(--pr)';$('#qz').querySelectorAll(`.ch[data-i="${b.dataset.i}"]`).forEach(o=>{if(o!==b)o.style.borderColor=''})});
+inp($('#ip'));
+const t0=Date.now()+7200000,tick=()=>{let s=Math.max(0,Math.round((t0-Date.now())/1000));$('#tm').textContent=Math.floor(s/3600)+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');if(!s)finish()};
+tmr=setInterval(tick,1000);
+function finish(){if(tmr){clearInterval(tmr);tmr=null}let n=0;E.forEach((q,i)=>{if(A[i]===q.a)n++;S.b[q.id]=A[i]===q.a?Math.min(4,(S.b[q.id]||0)+1):0});save();
+$('#fin').style.display='none';
+$('#rs').innerHTML=`<div class="card"><b>Exercice 1 : ${n}/${E.length}</b><ol>${E.map((q,i)=>`<li>${A[i]===q.a?'Juste':'Faux'} · réponse ${'ABCD'[q.a]}. ${M(q.e)}</li>`).join('')}</ol></div>`+ex.map((x,i)=>`<div class="card"><b>Corrigé de l’exercice ${i+2}</b><ol>${x.s.map(s=>`<li>${M(s)}</li>`).join('')}</ol></div>`).join('');$('#rs').scrollIntoView()}
+$('#fin').onclick=finish}
+function fiches(){$('#m').innerHTML='<h2>Formules à connaître</h2>'+F.map(([t,b])=>`<div class="card"><b>${t}</b><div class="q">${M(b)}</div></div>`).join('')}
+panel();go('h');
+</script></body></html>
+
